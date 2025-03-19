@@ -18,7 +18,6 @@ User Calorie Tracker API - это RESTful API для управления пол
 ### 1. Клонирование репозитория  
 
 git clone git@github.com:Lminexx/CaloriesTracker.git
-cd your-repo
 
 ### 2. Сборка проекта
 mvn clean install
