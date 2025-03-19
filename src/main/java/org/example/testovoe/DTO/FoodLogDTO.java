@@ -10,8 +10,9 @@ public class FoodLogDTO {
     private List<Dish> dishes;
 
 
-    public FoodLogDTO(LocalDate date) {
+    public FoodLogDTO(LocalDate date, List<Dish> dishes) {
         this.date = date;
+        this.dishes = dishes;
     }
 
     public LocalDate getDate() {

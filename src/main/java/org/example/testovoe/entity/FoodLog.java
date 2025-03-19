@@ -19,7 +19,7 @@ public class FoodLog {
 
     @ManyToMany
     @JoinTable(
-            name = "foodlog_meals",
+            name = "foodlog_dish",
             joinColumns = @JoinColumn(name = "food_log_id"),
             inverseJoinColumns = @JoinColumn(name = "dish_id")
     )

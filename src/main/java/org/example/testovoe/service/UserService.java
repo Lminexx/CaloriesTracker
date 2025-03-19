@@ -1,15 +1,10 @@
 package org.example.testovoe.service;
-import org.example.testovoe.DTO.CaloriesStatusDTO;
-import org.example.testovoe.DTO.DailyReportDTO;
-import org.example.testovoe.DTO.FoodLogDTO;
-import org.example.testovoe.DTO.UserDTO;
-import org.example.testovoe.Mapper.DailyReportMapper;
-import org.example.testovoe.Mapper.FoodLogMapper;
-import org.example.testovoe.Mapper.StatusMapper;
-import org.example.testovoe.Mapper.UserMapper;
+import org.example.testovoe.DTO.*;
+import org.example.testovoe.Mapper.*;
 import org.example.testovoe.entity.Dish;
 import org.example.testovoe.entity.FoodLog;
 import org.example.testovoe.entity.User;
+import org.example.testovoe.repository.DishRepository;
 import org.example.testovoe.repository.FoodLogRepository;
 import org.example.testovoe.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -24,14 +19,18 @@ public class UserService {
     private final FoodLogMapper foodLogMapper;
     private final StatusMapper statusMapper;
     private final DailyReportMapper dailyReportMapper;
+    private final DishRepository dishRepository;
+    private final DishMapper dishMapper;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper, FoodLogRepository foodLogRepository, FoodLogMapper foodLogMapper, StatusMapper statusMapper, DailyReportMapper dailyReportMapper) {
+    public UserService(UserRepository userRepository, UserMapper userMapper, FoodLogRepository foodLogRepository, FoodLogMapper foodLogMapper, StatusMapper statusMapper, DailyReportMapper dailyReportMapper, DishRepository dishRepository, DishMapper dishMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.foodLogRepository = foodLogRepository;
         this.foodLogMapper = foodLogMapper;
         this.statusMapper = statusMapper;
         this.dailyReportMapper = dailyReportMapper;
+        this.dishRepository = dishRepository;
+        this.dishMapper = dishMapper;
     }
 
     public UserDTO save(User user){
@@ -57,6 +56,9 @@ public class UserService {
     }
 
     private double calculateTotalCalories(List<FoodLog> foodLogs) {
+        if (foodLogs.isEmpty()) {
+            return 0;
+        }
         double totalCalories = 0;
         for (FoodLog log : foodLogs) {
             for (Dish dish : log.getDishes()) {
@@ -72,7 +74,6 @@ public class UserService {
 
         LocalDate today = LocalDate.now();
         List<FoodLog> foodLogs = foodLogRepository.findByUserIdAndDate(userId, today);
-
         double totalCalories = calculateTotalCalories(foodLogs);
 
         DailyReportDTO report = dailyReportMapper.toDailyReportDTO(user, foodLogs, today);
@@ -100,5 +101,13 @@ public class UserService {
         List<FoodLog> foodLogs = foodLogRepository.findByUserId(userId);
 
         return foodLogMapper.foodLogsToFoodLogDTOs(foodLogs);
+    }
+
+    public FoodLogDTO saveFoodLog(FoodLog foodLog) {
+        return foodLogMapper.foodLogToFoodLogDTO(foodLogRepository.save(foodLog));
+    }
+
+    public DishDTO saveDish(Dish dish) {
+        return dishMapper.toDishDTO(dishRepository.save(dish));
     }
 }

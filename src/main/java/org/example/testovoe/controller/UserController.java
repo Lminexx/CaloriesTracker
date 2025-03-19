@@ -1,17 +1,13 @@
 package org.example.testovoe.controller;
-
 import jakarta.validation.Valid;
-import org.example.testovoe.DTO.CaloriesStatusDTO;
-import org.example.testovoe.DTO.DailyReportDTO;
-import org.example.testovoe.DTO.FoodLogDTO;
-import org.example.testovoe.DTO.UserDTO;
+import org.example.testovoe.DTO.*;
+import org.example.testovoe.entity.Dish;
+import org.example.testovoe.entity.FoodLog;
 import org.example.testovoe.entity.User;
 import org.example.testovoe.service.UserService;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -51,5 +47,14 @@ public class UserController {
         return ResponseEntity.ok(foodHistory);
     }
 
+    @PostMapping("/dish")
+    public ResponseEntity<DishDTO> addDish(@Valid @RequestBody Dish dish){
+        return ResponseEntity.ok(userService.saveDish(dish));
+    }
+
+    @PostMapping("/food")
+    public ResponseEntity<FoodLogDTO> addFoodLog(@Valid @RequestBody FoodLog foodLog) {
+        return ResponseEntity.ok(userService.saveFoodLog(foodLog));
+    }
 
 }
