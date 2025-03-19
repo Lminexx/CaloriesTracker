@@ -9,6 +9,7 @@ public class Dish {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
+    @Column
     private String name;
 
     @Column(nullable = false)
@@ -35,6 +36,10 @@ public class Dish {
         this.proteins = proteins;
         this.fats = fats;
         this.carbs = carbs;
+    }
+
+    public Dish() {
+
     }
 
     public Long getId() {

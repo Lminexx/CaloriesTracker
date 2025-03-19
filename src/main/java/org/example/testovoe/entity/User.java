@@ -33,7 +33,7 @@ public class User {
     @Column(nullable = false)
     private Target target;
 
-    @Transient
+    @Column
     private Double dailyCalorieNorm;
 
     public enum Target{

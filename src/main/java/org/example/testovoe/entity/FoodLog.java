@@ -36,6 +36,10 @@ public class FoodLog {
         this.date = date;
     }
 
+    public FoodLog() {
+
+    }
+
     public Long getId() {
         return id;
     }
