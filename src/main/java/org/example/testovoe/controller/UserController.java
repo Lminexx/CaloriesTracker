@@ -12,11 +12,9 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
-
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@Valid @RequestBody User user) {
         user.setDailyCalorieNorm(userService.calculateCalorieNorm(user));
