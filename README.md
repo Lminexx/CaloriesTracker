@@ -10,7 +10,7 @@ User Calorie Tracker API - это RESTful API для управления пол
 - Spring Boot  
 - Spring Validation  
 - Hibernate  
-- H2/PostgreSQL (в зависимости от конфигурации)  
+- PostgreSQL
 - Maven  
 
 ## Запуск проекта
@@ -28,16 +28,15 @@ mvn spring-boot:run
 
 ## Api эндпоинты
 
-Пользователи
-	•	POST /users - создание пользователя
-	•	GET /users - получение списка пользователей
-	•	GET /users/report/daily/{userId} - получение дневного отчёта по калориям
-	•	GET /users/check/calories/{userId} - проверка статуса калорий
-	•	GET /users/history/{userId} - история приёмов пищи
+#### Пользователи
+- POST /users - создание пользователя
+- GET /users - получение списка пользователей
+- GET /users/check/calories/{userId} - проверка статуса калорий
+- GET /users/history/{userId} - история приёмов пищи
 
-Блюда и приёмы пищи
-	•	POST /users/dish - добавление блюда
-	•	POST /users/food - добавление приёма пищи
+#### Блюда и приёмы пищи
+- POST /users/dish - добавление блюда
+- POST /users/food - добавление приёма пищи
 
 
 
